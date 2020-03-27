@@ -4,7 +4,7 @@
     "port": 5432,
     "username": "postgres",
     "password": "postgreluis",
-    "database": "mystery",
+    "database": "mystery-busters",
     "entities": ["./**/*.entity.ts"],
     "synchronize": true
   }
