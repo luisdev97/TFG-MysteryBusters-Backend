@@ -1,0 +1,35 @@
+type Researcher {
+    id: Int!
+    firstname: String!
+    lastname: String
+    age: Int!
+    username: String!
+    password: String!
+    email: String!
+    avatar: String
+    role: String!
+    
+}
+
+input ResearcherInput {
+    firstname: String!
+    lastname: String
+    age: Int!
+    username: String!
+    password: String!
+    email: String!
+    avatar: String
+}
+
+
+type Query {
+    getResearchers: [Researcher!]
+    getResearcher: Researcher!
+}
+
+
+type Mutation {
+    createResearcher(input: ResearcherInput!): User!
+}
+
+

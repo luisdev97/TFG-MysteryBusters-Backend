@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ResearchersModule } from './researchers/researchers.module';
+import { AnomaliesModule } from './anomalies/anomalies.module';
 
 @Module({
   imports: [
@@ -8,9 +10,9 @@ import { GraphQLModule } from '@nestjs/graphql';
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
       playground: true
-    })
-  ],
-  controllers: [],
-  providers: [],
+    }),
+    ResearchersModule,
+    AnomaliesModule
+  ]
 })
 export class AppModule {}
