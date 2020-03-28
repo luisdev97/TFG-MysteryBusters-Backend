@@ -26,18 +26,11 @@ type Competencie {
     type: String!
 }
 
-input CompetencieInput {
-    id: [Int!]
-}
-
-
-
 
 type Query {
     getResearchers: [Researcher!]
-    getResearcher: Researcher!
+    getResearcher(id: Int!): Researcher!
 }
-
 
 type Mutation {
     createResearcher(input: ResearcherInput!): Researcher!

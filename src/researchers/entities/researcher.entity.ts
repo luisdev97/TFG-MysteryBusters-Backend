@@ -71,12 +71,10 @@ export class Researcher {
     private encryptPassword(): void {
         const newPassword = this.hashPassword(this.password);
         if(this.tempPassword){
-            console.log('Existe la pass', this.password);
             if(this.tempPassword !== newPassword)
                 this.password = newPassword;
         }else
             this.password = newPassword;
-            console.log('en el before');
     }
   
     
