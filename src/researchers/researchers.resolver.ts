@@ -1,5 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ResearchersService } from './researchers.service';
+import { ReseartcherInput } from './inputs/ResearcherInput';
 
 @Resolver('Researcher')
 export class ResearchersResolver {
@@ -13,7 +14,7 @@ export class ResearchersResolver {
  
 
     @Mutation()
-    async createResearcher(@Args('input') input: any){
-        
+    async createResearcher(@Args('input') input: ReseartcherInput){
+        return this.researchersService.createResearcher(input);
     }
 }

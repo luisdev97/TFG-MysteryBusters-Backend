@@ -1,14 +1,18 @@
 import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate, AfterLoad, ManyToMany, JoinTable } from "typeorm";
 import { Length, IsEmail, Min, Max, MinLength} from "class-validator";
-import bcrypt from 'bcrypt';
 import { ResearcherRole as Rol } from "../constants/roles";
 import { ResearcherCompetencie  } from './researcherCompetencie.entity';
+const bcrypt = require('bcrypt')
 
-@Entity()
+@Entity("researchers")
 export class Researcher {
 
-    private hashPassword = pass => bcrypt.hashSync(pass, 10)
-    
+    //private readonly hashPassword = pass => bcrypt.hashSync(pass, 10)
+    hashPassword(pass){
+        console.log(bcrypt);
+
+        return bcrypt.hashSync(pass, 10)
+    }
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -53,7 +57,7 @@ export class Researcher {
     role: Rol;
 
     @ManyToMany(type => ResearcherCompetencie)
-    @JoinTable()
+    @JoinTable({ name: "researchers_has_competencies"})
     competencies: ResearcherCompetencie[];
 
 
@@ -72,6 +76,7 @@ export class Researcher {
                 this.password = newPassword;
         }else
             this.password = newPassword;
+            console.log('en el before');
     }
   
     

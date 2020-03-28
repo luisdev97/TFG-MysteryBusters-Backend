@@ -7,8 +7,8 @@ type Researcher {
     password: String!
     email: String!
     avatar: String
-    role: String!
-    
+    role: String!  
+    competencies: [Competencie!]  
 }
 
 input ResearcherInput {
@@ -21,6 +21,17 @@ input ResearcherInput {
     avatar: String
 }
 
+type Competencie {
+    id: Int!
+    type: String!
+}
+
+input CompetencieInput {
+    id: [Int!]
+}
+
+
+
 
 type Query {
     getResearchers: [Researcher!]
@@ -29,7 +40,7 @@ type Query {
 
 
 type Mutation {
-    createResearcher(input: ResearcherInput!): User!
+    createResearcher(input: ResearcherInput!): Researcher!
 }
 
 
