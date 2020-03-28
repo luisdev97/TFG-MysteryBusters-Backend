@@ -1,4 +1,4 @@
-export type ReseartcherInput = {
+export type ResearcherInput = {
     firstname: string;
     lastname?: string;
     age: number;

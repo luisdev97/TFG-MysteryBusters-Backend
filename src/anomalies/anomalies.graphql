@@ -1,0 +1,29 @@
+
+type Anomaly {
+    id: Int!
+    creator: Int!
+    description: String!
+    type: String!
+}
+
+input AnomalyInput {
+    creator: Int!
+    title: String!
+    type: String!
+}
+
+type Incident {
+    id: Int!
+    description: String!
+    location: JSON
+}
+
+type Query {
+    getAnomalies: [Anomaly!]
+    getAnomalie(id: Int!): Anomaly!
+}
+
+
+type Mutation {
+    createAnomalie(input: AnomalyInput!): Anomaly!
+}

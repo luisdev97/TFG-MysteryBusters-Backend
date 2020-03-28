@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate, AfterLoad, ManyToMany, JoinTable } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate, AfterLoad, ManyToMany, JoinTable, OneToMany } from "typeorm";
 import { Length, IsEmail, Min, Max, MinLength} from "class-validator";
 import { ResearcherRole as Rol } from "../constants/roles";
 import { ResearcherCompetencie  } from './researcherCompetencie.entity';
+import { Anomaly } from '../../anomalies/entities/anomaly.entity';
 const bcrypt = require('bcrypt')
 
 @Entity("researchers")
@@ -9,8 +10,6 @@ export class Researcher {
 
     //private readonly hashPassword = pass => bcrypt.hashSync(pass, 10)
     hashPassword(pass){
-        console.log(bcrypt);
-
         return bcrypt.hashSync(pass, 10)
     }
     @PrimaryGeneratedColumn()
@@ -59,6 +58,9 @@ export class Researcher {
     @ManyToMany(type => ResearcherCompetencie)
     @JoinTable({ name: "researchers_has_competencies"})
     competencies: ResearcherCompetencie[];
+
+    @OneToMany(type => Anomaly, anomaly => anomaly.creator)
+    posted_anomalies: Anomaly[];
 
 
     @AfterLoad()
