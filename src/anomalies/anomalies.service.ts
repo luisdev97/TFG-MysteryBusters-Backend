@@ -6,4 +6,10 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class AnomaliesService {
     constructor(@InjectRepository(Anomaly) private readonly anomalyRepository: Repository<Anomaly>){}
+
+    async findAll(){
+        const result = await this.anomalyRepository.find({ relations:["creator", "creator.competencies"] });
+        console.log(result);
+        return result;
+    }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Researcher } from './entities/researcher.entity';
 import { Repository } from 'typeorm';
-import { ReseartcherInput } from './inputs/ResearcherInput';
+import { ResearcherInput } from './inputs/ResearcherInput';
 import { ResearcherCompetencie } from './entities/researcherCompetencie.entity';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class ResearchersService {
         return await this.researcherRepository.findOne({ where: { id }, relations: ["competencies"] })
     }
 
-    async createResearcher(researcher: ReseartcherInput): Promise<Researcher> {
+    async createResearcher(researcher: ResearcherInput): Promise<Researcher> {
         let newResearcher = new Researcher()
         const { firstname, lastname, username, email, password, age} = researcher;
         newResearcher.firstname = firstname;

@@ -1,7 +1,19 @@
+type Researcher {
+    id: Int!
+    firstname: String!
+    lastname: String
+    age: Int!
+    username: String!
+    password: String!
+    email: String!
+    avatar: String
+    role: String!  
+    competencies: [Competencie!]  
+}
 
 type Anomaly {
     id: Int!
-    creator: Int!
+    creator: Researcher!
     description: String!
     type: String!
 }
@@ -12,10 +24,26 @@ input AnomalyInput {
     type: String!
 }
 
+scalar JSON
+scalar Date
+scalar Time
+
 type Incident {
     id: Int!
     description: String!
-    location: JSON
+    location: JSON!
+    maxResearchers: Int!
+    date: Date!
+    time: Time!
+    resolved: Boolean!
+}
+
+input IncidentInput {
+    description: String!
+    location: JSON!
+    maxResearchers: Int!
+    date: Date!
+    time: Time!
 }
 
 type Query {
