@@ -8,7 +8,9 @@ type Researcher {
     email: String!
     avatar: String
     role: String!  
-    competencies: [Competencie!]  
+    competencies: [Competencie!]
+    posted_anomalies: [Anomaly]
+
 }
 
 input ResearcherInput {

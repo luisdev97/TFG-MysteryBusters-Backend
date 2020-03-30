@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
 import { LocationType } from "../constants/locationType.type";
 import { Anomaly } from './anomaly.entity';
+import { Researcher } from 'src/researchers/entities/researcher.entity';
 
 @Entity("incidents")
 export class Incident {
@@ -37,7 +38,11 @@ export class Incident {
     })
     resolved: boolean;
 
-   
+     
+    @ManyToMany(type => Researcher, researcher => researcher.investigated_incidents)
+    @JoinTable({ name: "researchers_investigate_incidents"})
+    assigned_researchers!: Researcher[];
+
 
 }    
 

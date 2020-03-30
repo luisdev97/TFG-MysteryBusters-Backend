@@ -3,6 +3,7 @@ import { Length, IsEmail, Min, Max, MinLength} from "class-validator";
 import { ResearcherRole as Rol } from "../constants/roles";
 import { ResearcherCompetencie  } from './researcherCompetencie.entity';
 import { Anomaly } from '../../anomalies/entities/anomaly.entity';
+import { Incident } from "src/anomalies/entities/incident.entity";
 const bcrypt = require('bcrypt')
 
 @Entity("researchers")
@@ -45,9 +46,11 @@ export class Researcher {
     @IsEmail()
     email: string;
 
+
     @Column({ nullable: true })
     avatar: string;
     
+
     @Column({
         type: 'simple-enum',
         enum: Rol,
@@ -55,12 +58,40 @@ export class Researcher {
     })
     role: Rol;
 
+
     @ManyToMany(type => ResearcherCompetencie)
     @JoinTable({ name: "researchers_has_competencies"})
     competencies: ResearcherCompetencie[];
 
+    
     @OneToMany(type => Anomaly, anomaly => anomaly.creator)
     posted_anomalies: Anomaly[];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @ManyToMany(type => Incident, (incident: Incident) => incident.assigned_researchers)
+    investigated_incidents!: Incident[];
 
 
     @AfterLoad()

@@ -7,6 +7,7 @@ import { ResearcherCompetencie } from './entities/researcherCompetencie.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Researcher, ResearcherCompetencie])],
-  providers: [ResearchersResolver, ResearchersService]
+  providers: [ResearchersResolver, ResearchersService],
+  exports: [ResearchersService]
 })
 export class ResearchersModule {}

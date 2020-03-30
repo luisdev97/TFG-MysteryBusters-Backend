@@ -1,26 +1,15 @@
-type Researcher {
-    id: Int!
-    firstname: String!
-    lastname: String
-    age: Int!
-    username: String!
-    password: String!
-    email: String!
-    avatar: String
-    role: String!  
-    competencies: [Competencie!]  
-}
 
 type Anomaly {
     id: Int!
     creator: Researcher!
     description: String!
     type: String!
+    incidents: [Incident!]
 }
 
 input AnomalyInput {
-    creator: Int!
-    title: String!
+    researcher_id: Int!
+    description: String!
     type: String!
 }
 
@@ -48,10 +37,13 @@ input IncidentInput {
 
 type Query {
     getAnomalies: [Anomaly!]
-    getAnomalie(id: Int!): Anomaly!
+    getAnomalie(id: Int!): Anomaly
+    getIncidents: [Incident!]
+
 }
 
 
 type Mutation {
-    createAnomalie(input: AnomalyInput!): Anomaly!
+    createAnomaly(input: AnomalyInput!): Anomaly!
+    deleteAnomaly(id: Int!): Int
 }
