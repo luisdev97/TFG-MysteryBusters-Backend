@@ -1,0 +1,26 @@
+scalar JSON
+scalar Date
+scalar Time
+
+type Incident {
+    id: Int!
+    description: String!
+    location: JSON!
+    maxResearchers: Int!
+    date: Date!
+    time: Time!
+    resolved: Boolean!
+}
+
+input IncidentInput {
+    description: String!
+    location: JSON!
+    maxResearchers: Int!
+    date: Date!
+    time: Time!
+}
+
+type Query {
+    getIncidents: [Incident!]
+
+}
