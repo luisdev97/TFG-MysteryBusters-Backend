@@ -6,11 +6,17 @@ type Anomaly {
     incidents: [Incident!]
 }
 
-input AnomalyInput {
+input CreateAnomalyInput {
     researcher_id: Int!
     description: String!
     type: String!
 }
+
+input UpdateAnomalyInput {
+    description: String
+    type: String
+}
+
 
 type Query {
     getAnomalies: [Anomaly!]
@@ -18,6 +24,7 @@ type Query {
 }
 
 type Mutation {
-    createAnomaly(input: AnomalyInput!): Anomaly!
+    createAnomaly(input: CreateAnomalyInput!): Anomaly!
     deleteAnomaly(id: Int!): Int
+    updateAnomaly(id: ID!, input: UpdateAnomalyInput!): Anomaly!
 }

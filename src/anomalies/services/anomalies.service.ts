@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Anomaly } from '../entities/anomaly.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { AnomalyInput } from '../graphql/inputs/anomaly.input';
+import { UpdateAnomalyArgs } from '../constants/types/update-anomaly.args';
 
 @Injectable()
 export class AnomaliesService {
@@ -24,6 +25,11 @@ export class AnomaliesService {
     async deleteAnomaly(id: number){
         const result = await this.anomalyRepository.delete(id)
         return result.affected;
+    }
+    //args: UpdateAnomalyArgs
+    async updateAnomaly({ id, input }: UpdateAnomalyArgs): Promise<Anomaly>{
+        const actualAnomaly = await this.anomalyRepository.findOne(id);
+        return this.anomalyRepository.save({...actualAnomaly, ...input });;
     }
 
 

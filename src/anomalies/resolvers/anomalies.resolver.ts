@@ -8,6 +8,7 @@ import { AnomalyInput } from '../graphql/inputs/anomaly.input';
 import { Researcher } from '../../researchers/entities/researcher.entity';
 import { ResearchersResolver } from 'src/researchers/researchers.resolver';
 import { ResearchersService } from '../../researchers/researchers.service';
+import { UpdateAnomalyArgs } from '../constants/types/update-anomaly.args';
 
 @Resolver('Anomaly')
 export class AnomaliesResolver {
@@ -44,6 +45,11 @@ export class AnomaliesResolver {
     @Mutation()
     async deleteAnomaly(@Args('id') id: number): Promise<number>{  
         return await this.anomaliesService.deleteAnomaly(id);
+    }
+
+    @Mutation()
+    async updateAnomaly(@Args() args: UpdateAnomalyArgs): Promise<Anomaly>{
+        return await this.anomaliesService.updateAnomaly(args);
     }
 
 }
