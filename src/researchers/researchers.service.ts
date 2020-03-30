@@ -3,22 +3,22 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Researcher } from './entities/researcher.entity';
 import { Repository } from 'typeorm';
 import { ResearcherInput } from './inputs/ResearcherInput';
-import { ResearcherCompetencie } from './entities/researcherCompetencie.entity';
+import { ResearcherCompetencie as Competencie } from './entities/researcherCompetencie.entity';
 
 @Injectable()
 export class ResearchersService {
 
     constructor(
         @InjectRepository(Researcher) private readonly researcherRepository: Repository<Researcher>,
-        /*@InjectRepository(ResearcherCompetencie) private readonly competencieRepository: Repository<ResearcherCompetencie>*/
+        @InjectRepository(Competencie) private readonly competenciesRepository: Repository<Competencie>
     ){}
 
     async findAll(): Promise<Researcher[]> {
-        return await this.researcherRepository.find({ relations: ["competencies"] });
+        return await this.researcherRepository.find();
     }
 
     async findOneById(id: number): Promise<Researcher> {
-        return await this.researcherRepository.findOne({ where: { id }, relations: ["competencies"] })
+        return await this.researcherRepository.findOne(id)
     }
 
     async createResearcher(researcher: ResearcherInput): Promise<Researcher> {
@@ -33,7 +33,7 @@ export class ResearchersService {
         return await this.researcherRepository.save(newResearcher);
     }
 
-    /*async findResearcherCompetencies(idResarcher: number): Promise<ResearcherCompetencie[]> {
-        return this.competencieRepository.find();
-    }*/
+    async findResearcherCompetencies(id: number): Promise<Competencie[]> {
+        return await this.competenciesRepository.find({ where: { researcherCompetenciesId: id}});
+    }
 }

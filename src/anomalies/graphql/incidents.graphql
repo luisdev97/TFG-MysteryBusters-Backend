@@ -22,5 +22,4 @@ input IncidentInput {
 
 type Query {
     getIncidents: [Incident!]
-
 }

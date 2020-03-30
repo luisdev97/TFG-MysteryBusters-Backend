@@ -9,9 +9,10 @@ import { Incident } from './entities/incident.entity';
 import { ResearchersService } from '../researchers/researchers.service';
 import { Researcher } from 'src/researchers/entities/researcher.entity';
 import { ResearchersModule } from '../researchers/researchers.module';
+import { ResearcherCompetencie } from '../researchers/entities/researcherCompetencie.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Anomaly, Incident, Researcher]), ResearchersModule],
+  imports: [TypeOrmModule.forFeature([Anomaly, Incident, Researcher, ResearcherCompetencie]), ResearchersModule],
   providers: [AnomaliesService, AnomaliesResolver, IncidentsService, IncidentsResolver, ResearchersService]
 })
 export class AnomaliesModule {}

@@ -25,7 +25,6 @@ export class AnomaliesResolver {
    
     @ResolveField(returns => [Incident])
     async incidents(@Parent() getAnomalies: Anomaly): Promise<Incident[]>{
-        //const { id } = getAnomalies;
         return this.incidentsService.findAll();
     }
 

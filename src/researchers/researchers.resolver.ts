@@ -1,7 +1,9 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
 import { ResearchersService } from './researchers.service';
 import { ResearcherInput } from './inputs/ResearcherInput';
 import { Researcher } from './entities/researcher.entity';
+import { ResearcherCompetencie } from './entities/researcherCompetencie.entity';
+import { async } from 'rxjs/internal/scheduler/async';
 
 @Resolver('Researcher')
 export class ResearchersResolver {
@@ -22,6 +24,13 @@ export class ResearchersResolver {
     async createResearcher(@Args('input') input: ResearcherInput){
         return this.researchersService.createResearcher(input);
     }
+
+    @ResolveField((returns) => [ResearcherCompetencie])
+    async competencies(@Parent() getResearchers: Researcher): Promise<ResearcherCompetencie[]>{
+        const { id } = getResearchers;
+        return this.researchersService.findResearcherCompetencies(id);
+    }
+
 
 
 }
