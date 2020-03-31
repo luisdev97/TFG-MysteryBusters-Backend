@@ -4,20 +4,30 @@ scalar Time
 
 type Incident {
     id: Int!
+    belong_to_anomaly: Int!
     description: String!
     location: JSON!
-    maxResearchers: Int!
     date: Date!
     time: Time!
+    maxResearchers: Int!
     resolved: Boolean!
+    assigned_researchers: [Researcher!]
 }
 
-input IncidentInput {
+input CreateIncidentInput {
     description: String!
     location: JSON!
     maxResearchers: Int!
     date: Date!
     time: Time!
+}
+
+input UpdateAnomalyInput {
+    description: String
+    location: JSON
+    maxResearchers: Int
+    date: Date
+    time: Time
 }
 
 type Query {

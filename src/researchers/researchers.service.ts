@@ -21,6 +21,10 @@ export class ResearchersService {
         return this.researcherRepository.findOne(id)
     }
 
+    findAssignedResearcherToAIncident(id: number): Promise<Researcher[]> {
+        return this.researcherRepository.find({ where: { id }})
+    }
+
     async createResearcher(researcher: ResearcherInput): Promise<Researcher> {
         let newResearcher = new Researcher()
         const { firstname, lastname, username, email, password, age} = researcher;

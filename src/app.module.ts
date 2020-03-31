@@ -6,8 +6,7 @@ import { AnomaliesModule } from './anomalies/anomalies.module';
 import * as GraphQLJSON from 'graphql-type-json';
 import {
   GraphQLDate,
-  GraphQLTime,
-  GraphQLDateTime
+  GraphQLTime
 } from 'graphql-iso-date';
 
 @Module({
@@ -19,7 +18,7 @@ import {
       resolvers: { 
         JSON: GraphQLJSON,
         Date: GraphQLDate,
-        Time: GraphQLDateTime
+        Time: GraphQLTime
       }
     }),
     ResearchersModule,
