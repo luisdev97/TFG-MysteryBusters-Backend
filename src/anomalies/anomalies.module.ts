@@ -12,7 +12,8 @@ import { ResearchersModule } from '../researchers/researchers.module';
 import { ResearcherCompetencie } from '../researchers/entities/researcherCompetencie.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Anomaly, Incident, Researcher, ResearcherCompetencie]), ResearchersModule],
-  providers: [AnomaliesService, AnomaliesResolver, IncidentsService, IncidentsResolver, ResearchersService]
+  imports: [TypeOrmModule.forFeature([Anomaly, Incident, Researcher, ResearcherCompetencie])],
+  providers: [AnomaliesService, AnomaliesResolver, IncidentsService, IncidentsResolver, ResearchersService],
+  exports: [AnomaliesService]
 })
 export class AnomaliesModule {}

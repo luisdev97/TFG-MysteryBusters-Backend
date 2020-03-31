@@ -14,11 +14,11 @@ export class ResearchersService {
     ){}
 
     async findAll(): Promise<Researcher[]> {
-        return await this.researcherRepository.find();
+        return this.researcherRepository.find();
     }
 
     async findOneById(id: number): Promise<Researcher> {
-        return await this.researcherRepository.findOne(id)
+        return this.researcherRepository.findOne(id)
     }
 
     async createResearcher(researcher: ResearcherInput): Promise<Researcher> {

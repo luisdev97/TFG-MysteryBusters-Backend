@@ -20,7 +20,7 @@ input UpdateAnomalyInput {
 
 type Query {
     getAnomalies: [Anomaly!]
-    getAnomalie(id: Int!): Anomaly
+    getAnomaly(id: Int!): Anomaly
 }
 
 type Mutation {

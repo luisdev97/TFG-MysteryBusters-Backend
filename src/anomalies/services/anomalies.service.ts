@@ -9,16 +9,24 @@ import { UpdateAnomalyArgs } from '../constants/types/update-anomaly.args';
 export class AnomaliesService {
     constructor(@InjectRepository(Anomaly) private readonly anomalyRepository: Repository<Anomaly>){}
 
-    async findAll(){
-        return await this.anomalyRepository.find();
+    findAll(): Promise<Anomaly[]>{
+        return this.anomalyRepository.find();
     }
 
-    async createAnomaly(anomaly: AnomalyInput): Promise<Anomaly>{
+    findOnE(id: number): Promise<Anomaly>{
+        return this.anomalyRepository.findOne(id);
+    }
+
+    findAllAnomalyPostedByResearcher(id: number): Promise<Anomaly[]> {
+        return this.anomalyRepository.find({ where: { researcher_id: id}});
+    }
+
+    createAnomaly(anomaly: AnomalyInput): Promise<Anomaly>{
         let newAnomaly = new Anomaly();
         newAnomaly.researcher_id = anomaly.researcher_id;
         newAnomaly.type = anomaly.type;
         newAnomaly.description = anomaly.description;
-        return await this.anomalyRepository.save(newAnomaly);
+        return this.anomalyRepository.save(newAnomaly);
     }
 
 
@@ -26,6 +34,7 @@ export class AnomaliesService {
         const result = await this.anomalyRepository.delete(id)
         return result.affected;
     }
+    
     //args: UpdateAnomalyArgs
     async updateAnomaly({ id, input }: UpdateAnomalyArgs): Promise<Anomaly>{
         const actualAnomaly = await this.anomalyRepository.findOne(id);

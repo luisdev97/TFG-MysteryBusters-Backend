@@ -10,6 +10,7 @@ export class IncidentsService {
     async findAll(){
         return await this.incidentsRepository.find();
     }
+    
     async findAllByAnomaliyId(id: number): Promise<Incident[]>{
         return await this.incidentsRepository.find({ where: { anomalyId: id } });
     }

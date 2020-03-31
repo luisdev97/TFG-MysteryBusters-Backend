@@ -16,39 +16,44 @@ export class AnomaliesResolver {
         private readonly anomaliesService: AnomaliesService,
         private readonly incidentsService: IncidentsService,
         private readonly researcherService: ResearchersService
-    ){}
+    ) { }
 
     @Query(returns => [Anomaly])
-    async getAnomalies(): Promise<Anomaly[]>{
-        return this.anomaliesService.findAll();
+    async getAnomalies(): Promise<Anomaly[]> {
+        return await this.anomaliesService.findAll();
     }
- 
-   
+
+    @Query(returns => Anomaly)
+    async getAnomaly(@Args('id') id: number): Promise<Anomaly> {
+        return await this.anomaliesService.findOnE(id);
+    }
+
     @ResolveField(returns => [Incident])
-    async incidents(@Parent() getAnomalies: Anomaly): Promise<Incident[]>{
-        return this.incidentsService.findAll();
+    async incidents(@Parent() getAnomalies: Anomaly): Promise<Incident[]> {
+        return await this.incidentsService.findAll();
     }
 
 
     @ResolveField(returns => Researcher)
-    async creator(@Parent() getAnomalies: Anomaly): Promise<Researcher>{
+    async creator(@Parent() getAnomalies: Anomaly): Promise<Researcher> {
         const { researcher_id } = getAnomalies;
-        return this.researcherService.findOneById(researcher_id);
+        return await this.researcherService.findOneById(researcher_id);
     }
 
+
     @Mutation()
-    async createAnomaly(@Args('input') input: AnomalyInput): Promise<Anomaly>{
+    async createAnomaly(@Args('input') input: AnomalyInput): Promise<Anomaly> {
         const result = await this.anomaliesService.createAnomaly(input);
         return result;
     }
 
     @Mutation()
-    async deleteAnomaly(@Args('id') id: number): Promise<number>{  
+    async deleteAnomaly(@Args('id') id: number): Promise<number> {
         return await this.anomaliesService.deleteAnomaly(id);
     }
 
     @Mutation()
-    async updateAnomaly(@Args() args: UpdateAnomalyArgs): Promise<Anomaly>{
+    async updateAnomaly(@Args() args: UpdateAnomalyArgs): Promise<Anomaly> {
         return await this.anomaliesService.updateAnomaly(args);
     }
 
