@@ -2,20 +2,32 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Incident } from '../entities/incident.entity';
 import { Repository } from 'typeorm';
+import { IncidentInput } from '../graphql/inputs/incident.input';
+import { Anomaly } from '../entities/anomaly.entity';
 
 @Injectable()
 export class IncidentsService {
     constructor(@InjectRepository(Incident) private readonly incidentsRepository: Repository<Incident>){}
 
-    async findAll(){
-        return await this.incidentsRepository.find();
-    }
-    
-    async findAllByAnomaliyId(id: number): Promise<Incident[]>{
-        const result = await this.incidentsRepository.find({ where: { anomalyId: id } });
+    async findAll(): Promise<Incident[]>{
+        const result = await this.incidentsRepository.find();
         console.log(result);
-        return result;
+        return result
     }
     
-
+    findAllByAnomaliyId(id: number): Promise<Incident[]>{
+        return this.incidentsRepository.find({ where: { anomalyId: id } });
+    }
+    
+    create(input: IncidentInput): Promise<Incident> {
+        const { description, location, maxResearchers, date, time, anomaly_id } = input;
+        let newIncident = new Incident()
+        newIncident.description = description;
+        newIncident.location = location;
+        newIncident.date = date;
+        newIncident.time = time;
+        newIncident.maxResearchers = maxResearchers;
+        newIncident.anomaly_id = anomaly_id;
+        return this.incidentsRepository.save(newIncident);
+    }
 }

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, JoinColumn } from 'typeorm';
 import { LocationType } from "../constants/locationType.type";
 import { Anomaly } from './anomaly.entity';
 import { Researcher } from 'src/researchers/entities/researcher.entity';
@@ -9,8 +9,13 @@ export class Incident {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column()
+    anomaly_id?: Anomaly['id'];
+
     @ManyToOne(type => Anomaly, anomaly => anomaly.incidents)
-    anomaly: Anomaly
+    @JoinColumn({ name: "anomaly_id"})
+    anomaly: Anomaly;
+
 
     @Column()
     description: string;

@@ -13,11 +13,11 @@ export class ResearchersService {
         @InjectRepository(Competencie) private readonly competenciesRepository: Repository<Competencie>
     ){}
 
-    async findAll(): Promise<Researcher[]> {
+    findAll(): Promise<Researcher[]> {
         return this.researcherRepository.find();
     }
 
-    async findOneById(id: number): Promise<Researcher> {
+    findOneById(id: number): Promise<Researcher> {
         return this.researcherRepository.findOne(id)
     }
 
@@ -25,7 +25,7 @@ export class ResearchersService {
         return this.researcherRepository.find({ where: { id }})
     }
 
-    async createResearcher(researcher: ResearcherInput): Promise<Researcher> {
+    createResearcher(researcher: ResearcherInput): Promise<Researcher> {
         let newResearcher = new Researcher()
         const { firstname, lastname, username, email, password, age} = researcher;
         newResearcher.firstname = firstname;
@@ -34,10 +34,10 @@ export class ResearchersService {
         newResearcher.age = age;
         newResearcher.email = email;
         newResearcher.password = password;
-        return await this.researcherRepository.save(newResearcher);
+        return this.researcherRepository.save(newResearcher);
     }
 
-    async findResearcherCompetencies(id: number): Promise<Competencie[]> {
-        return await this.competenciesRepository.find({ where: { researcherCompetenciesId: id}});
+    findResearcherCompetencies(id: number): Promise<Competencie[]> {
+        return this.competenciesRepository.find({ where: { researcherCompetenciesId: id}});
     }
 }
