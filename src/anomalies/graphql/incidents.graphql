@@ -23,7 +23,7 @@ input CreateIncidentInput {
     time: Time!
 }
 
-input UpdateAnomalyInput {
+input UpdateIncidentInput {
     description: String
     location: JSON
     maxResearchers: Int
@@ -31,10 +31,14 @@ input UpdateAnomalyInput {
     time: Time
 }
 
+
 type Query {
     getIncidents: [Incident!]
+    getIncident(id: Int!): Incident!
 }
 
 type Mutation {
     createIncident(input: CreateIncidentInput!): Incident!
+    deleteIncident(id: Int!): Int
+    updateIncident(id: ID!, input: UpdateAnomalyInput!): Anomaly!
 }

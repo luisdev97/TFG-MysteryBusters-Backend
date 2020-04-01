@@ -9,10 +9,12 @@ import { Anomaly } from '../entities/anomaly.entity';
 export class IncidentsService {
     constructor(@InjectRepository(Incident) private readonly incidentsRepository: Repository<Incident>){}
 
-    async findAll(): Promise<Incident[]>{
-        const result = await this.incidentsRepository.find();
-        console.log(result);
-        return result
+    findAll(): Promise<Incident[]>{
+        return  this.incidentsRepository.find();
+    }
+
+    findOne(id: number): Promise<Incident> {
+        return this.incidentsRepository.findOne(id);
     }
     
     findAllByAnomaliyId(id: number): Promise<Incident[]>{

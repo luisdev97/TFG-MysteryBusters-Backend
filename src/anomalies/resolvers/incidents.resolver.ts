@@ -15,9 +15,12 @@ export class IncidentsResolver {
 
     @Query(returns => [Incident])
     async getIncidents(): Promise<Incident[]>{
-        const result = await this.incidentsService.findAll();
-        console.log(result)
-        return result;
+        return await this.incidentsService.findAll();
+    }
+
+    @Query(returns => Incident)
+    async getIncident(@Args('id') id: Incident['id']): Promise<Incident>{
+        return await this.incidentsService.findOne(id);
     }
 
     @ResolveField(returns => [Researcher])
