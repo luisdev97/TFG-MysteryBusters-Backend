@@ -33,6 +33,12 @@ export class IncidentsResolver {
     async createIncident(@Args('input') input: IncidentInput){
         return await this.incidentsService.create(input);
     }
+
+    @Mutation()
+    async deleteIncident(@Args('id') id: Incident['id']): Promise<number> {
+        return null;
+    }
+    
     
   
 }

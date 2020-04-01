@@ -32,4 +32,9 @@ export class IncidentsService {
         newIncident.anomaly_id = anomaly_id;
         return this.incidentsRepository.save(newIncident);
     }
+
+    async deleteIncident(id: Incident['id']): Promise<number> {
+        const result = await this.incidentsRepository.delete(id);
+        return result.affected;
+    }
 }
