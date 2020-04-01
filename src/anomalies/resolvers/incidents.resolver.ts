@@ -36,7 +36,7 @@ export class IncidentsResolver {
 
     @Mutation()
     async deleteIncident(@Args('id') id: Incident['id']): Promise<number> {
-        return null;
+        return this.incidentsService.deleteIncident(id);
     }
     
     
