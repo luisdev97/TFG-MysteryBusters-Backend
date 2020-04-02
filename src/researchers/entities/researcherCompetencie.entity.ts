@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Researcher } from './researcher.entity';
 
 @Entity("researcher_competencies")
 export class ResearcherCompetencie {
@@ -8,5 +9,10 @@ export class ResearcherCompetencie {
 
     @Column()
     type: string;
+
+    @ManyToMany(type => Researcher, researcher => researcher.competencies)
+    @JoinTable({ name: "researchers_has_competencies"})
+    researchers: Researcher[];
+
 
 }

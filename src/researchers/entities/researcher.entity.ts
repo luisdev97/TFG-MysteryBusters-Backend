@@ -59,7 +59,7 @@ export class Researcher {
     role: Rol;
 
 
-    @ManyToMany(type => ResearcherCompetencie)
+    @ManyToMany(type => ResearcherCompetencie, competencie => competencie.researchers)
     @JoinTable({ name: "researchers_has_competencies"})
     competencies: ResearcherCompetencie[];
 

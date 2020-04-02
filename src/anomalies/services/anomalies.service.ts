@@ -4,6 +4,7 @@ import { Anomaly } from '../entities/anomaly.entity';
 import { Repository, UpdateResult } from 'typeorm';
 import { AnomalyInput } from '../graphql/inputs/anomaly.input';
 import { UpdateAnomalyArgs } from '../constants/types/update-anomaly.args';
+import { createObject } from 'src/shared/helpers/AutoAssignFields';
 
 @Injectable()
 export class AnomaliesService {
@@ -21,12 +22,9 @@ export class AnomaliesService {
         return this.anomalyRepository.find({ where: { researcher_id: id}});
     }
 
-    createAnomaly(anomaly: AnomalyInput): Promise<Anomaly>{
-        let newAnomaly = new Anomaly();
-        newAnomaly.researcher_id = anomaly.researcher_id;
-        newAnomaly.type = anomaly.type;
-        newAnomaly.description = anomaly.description;
-        return this.anomalyRepository.save(newAnomaly);
+    createAnomaly(input: AnomalyInput): Promise<Anomaly>{
+        const object: Anomaly = createObject<Anomaly, AnomalyInput>(input);
+        return this.anomalyRepository.save(object);    
     }
 
 

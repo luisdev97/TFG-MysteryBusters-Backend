@@ -14,7 +14,7 @@ export class Incident {
 
     @ManyToOne(type => Anomaly, anomaly => anomaly.incidents)
     @JoinColumn({ name: "anomaly_id"})
-    anomaly: Anomaly;
+    belong_to_anomaly: Anomaly;
 
 
     @Column()

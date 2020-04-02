@@ -4,6 +4,7 @@ import { Researcher } from './entities/researcher.entity';
 import { Repository } from 'typeorm';
 import { ResearcherInput } from './inputs/ResearcherInput';
 import { ResearcherCompetencie as Competencie } from './entities/researcherCompetencie.entity';
+import { createObject } from '../shared/helpers/AutoAssignFields';
 
 @Injectable()
 export class ResearchersService {
@@ -25,19 +26,17 @@ export class ResearchersService {
         return this.researcherRepository.find({ where: { id }})
     }
 
-    createResearcher(researcher: ResearcherInput): Promise<Researcher> {
-        let newResearcher = new Researcher()
-        const { firstname, lastname, username, email, password, age} = researcher;
-        newResearcher.firstname = firstname;
-        newResearcher.lastname = lastname;
-        newResearcher.username = username
-        newResearcher.age = age;
-        newResearcher.email = email;
-        newResearcher.password = password;
-        return this.researcherRepository.save(newResearcher);
+    createResearcher(input: ResearcherInput): Promise<Researcher> {
+        const object: Researcher = createObject<Researcher, ResearcherInput>(input);
+        return this.researcherRepository.save(object);
     }
 
-    findResearcherCompetencies(id: number): Promise<Competencie[]> {
-        return this.competenciesRepository.find({ where: { researcherCompetenciesId: id}});
+    async findResearcherCompetencies(id: number): Promise<Competencie[]> {
+        const result = await this.competenciesRepository
+            .createQueryBuilder("researcher_competencies")
+            .innerJoin("researcher_competencies.researchers", "researcher")
+            .where(`researcher.id = ${id}`)
+            .getMany();
+       return result;
     }
 }

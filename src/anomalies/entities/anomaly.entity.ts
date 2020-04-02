@@ -16,7 +16,7 @@ export class Anomaly {
     @Column()
     description: string;
 
-    @OneToMany(type => Incident, incident => incident.anomaly)
+    @OneToMany(type => Incident, incident => incident.belong_to_anomaly)
     incidents: Incident[]
 
     @Column({ 

@@ -4,7 +4,7 @@ scalar Time
 
 type Incident {
     id: Int!
-    belong_to_anomaly: Int!
+    belong_to_anomaly: Anomaly!
     description: String!
     location: JSON!
     date: Date!
