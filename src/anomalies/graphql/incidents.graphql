@@ -40,5 +40,5 @@ type Query {
 type Mutation {
     createIncident(input: CreateIncidentInput!): Incident!
     deleteIncident(id: Int!): Int
-    updateIncident(id: ID!, input: UpdateAnomalyInput!): Anomaly!
+    updateIncident(id: ID!, input: UpdateIncidentInput!): Incident!
 }

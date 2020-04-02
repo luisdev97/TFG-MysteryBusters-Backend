@@ -4,6 +4,7 @@ import { Incident } from '../entities/incident.entity';
 import { Repository } from 'typeorm';
 import { IncidentInput } from '../graphql/inputs/incident.input';
 import { Anomaly } from '../entities/anomaly.entity';
+import { UpdateIncidentArgs } from '../constants/types/update-incident-args';
 
 @Injectable()
 export class IncidentsService {
@@ -33,8 +34,19 @@ export class IncidentsService {
         return this.incidentsRepository.save(newIncident);
     }
 
-    async deleteIncident(id: Incident['id']): Promise<number> {
+    async delete(id: Incident['id']): Promise<number> {
         const result = await this.incidentsRepository.delete(id);
         return result.affected;
+    }
+
+    async update({ id, input} : UpdateIncidentArgs){
+        const { description, location, maxResearchers, date, time } = input;
+        const actualyIncident: Incident = await this.incidentsRepository.findOne(id);
+        actualyIncident.description = description;
+        actualyIncident.location = location;
+        actualyIncident.date = date;
+        actualyIncident.time = time;
+        actualyIncident.maxResearchers = maxResearchers;
+        return this.incidentsRepository.save({...actualyIncident, ...input});
     }
 }

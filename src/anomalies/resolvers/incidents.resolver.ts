@@ -4,6 +4,7 @@ import { IncidentsService } from '../services/incidents.service';
 import { Researcher } from 'src/researchers/entities/researcher.entity';
 import { ResearchersService } from 'src/researchers/researchers.service';
 import { IncidentInput } from '../graphql/inputs/incident.input';
+import { UpdateIncidentArgs } from '../constants/types/update-incident-args';
 
 @Resolver('Incident')
 export class IncidentsResolver {
@@ -36,8 +37,16 @@ export class IncidentsResolver {
 
     @Mutation()
     async deleteIncident(@Args('id') id: Incident['id']): Promise<number> {
-        return this.incidentsService.deleteIncident(id);
+        return this.incidentsService.delete(id);
     }
+
+    @Mutation()
+    async updateIncident(@Args() args: UpdateIncidentArgs): Promise<Incident>{
+        const result = await this.incidentsService.update(args);
+        return result;
+    }
+
+
     
     
   

@@ -3,11 +3,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ResearchersModule } from './researchers/researchers.module';
 import { AnomaliesModule } from './anomalies/anomalies.module';
+import { join } from 'path';
 import * as GraphQLJSON from 'graphql-type-json';
 import {
   GraphQLDate,
   GraphQLTime
 } from 'graphql-iso-date';
+
 
 @Module({
   imports: [
