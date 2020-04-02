@@ -5,6 +5,8 @@ import { Repository } from 'typeorm';
 import { IncidentInput } from '../graphql/inputs/incident.input';
 import { Anomaly } from '../entities/anomaly.entity';
 import { UpdateIncidentArgs } from '../constants/types/update-incident-args';
+import { createObject } from '../../shared/helpers/AutoAssignFields';
+import { CreateIncidentInput } from '../../schema.graphql';
 
 @Injectable()
 export class IncidentsService {
@@ -23,15 +25,8 @@ export class IncidentsService {
     }
     
     create(input: IncidentInput): Promise<Incident> {
-        const { description, location, maxResearchers, date, time, anomaly_id } = input;
-        let newIncident = new Incident()
-        newIncident.description = description;
-        newIncident.location = location;
-        newIncident.date = date;
-        newIncident.time = time;
-        newIncident.maxResearchers = maxResearchers;
-        newIncident.anomaly_id = anomaly_id;
-        return this.incidentsRepository.save(newIncident);
+        const object: Incident = createObject<Incident, IncidentInput>(input);
+        return this.incidentsRepository.save(object);
     }
 
     async delete(id: Incident['id']): Promise<number> {
@@ -40,13 +35,9 @@ export class IncidentsService {
     }
 
     async update({ id, input} : UpdateIncidentArgs){
-        const { description, location, maxResearchers, date, time } = input;
         const actualyIncident: Incident = await this.incidentsRepository.findOne(id);
-        actualyIncident.description = description;
-        actualyIncident.location = location;
-        actualyIncident.date = date;
-        actualyIncident.time = time;
-        actualyIncident.maxResearchers = maxResearchers;
         return this.incidentsRepository.save({...actualyIncident, ...input});
     }
+
+    
 }
