@@ -8,7 +8,6 @@ import { IncidentsResolver } from './resolvers/incidents.resolver';
 import { Incident } from './entities/incident.entity';
 import { ResearchersService } from '../researchers/researchers.service';
 import { Researcher } from 'src/researchers/entities/researcher.entity';
-import { ResearchersModule } from '../researchers/researchers.module';
 import { ResearcherCompetencie } from '../researchers/entities/researcherCompetencie.entity';
 
 @Module({

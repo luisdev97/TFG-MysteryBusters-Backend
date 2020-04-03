@@ -43,15 +43,20 @@ export class Incident {
     })
     resolved: boolean;
 
-     
-    @ManyToMany(type => Researcher, researcher => researcher.investigated_incidents)
+    @ManyToMany(type => Researcher , researcher => researcher.incidents)
+    @JoinTable({ name: "researchers_investigate_incidents" })
+    researchers: Researcher[];
+
+
+    /* 
+    @ManyToMany(type => Researcher, researcher => researcher.assigned_incidents)
     @JoinTable({ 
         name: "researchers_investigate_incidents",
         joinColumn: { name: "researcher_id", referencedColumnName: "id"},
         inverseJoinColumn: { name: "incident_id", referencedColumnName: "id"}
     })
     assigned_researchers!: Researcher[];
-
+    */
 
 }    
 

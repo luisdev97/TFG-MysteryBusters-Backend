@@ -22,10 +22,6 @@ export class ResearchersService {
         return this.researcherRepository.findOne(id)
     }
 
-    findAssignedResearcherToAIncident(id: number): Promise<Researcher[]> {
-        return this.researcherRepository.find({ where: { id }})
-    }
-
     createResearcher(input: ResearcherInput): Promise<Researcher> {
         const object: Researcher = createObject<Researcher, ResearcherInput>(input);
         return this.researcherRepository.save(object);
@@ -37,6 +33,6 @@ export class ResearchersService {
             .innerJoin("researcher_competencies.researchers", "researcher")
             .where(`researcher.id = ${id}`)
             .getMany();
-       return result;
+        return result;
     }
 }

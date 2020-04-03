@@ -11,7 +11,7 @@ type Incident {
     time: Time!
     maxResearchers: Int!
     resolved: Boolean!
-    assigned_researchers: [Researcher!]
+    researchers: [Researcher!]
 }
 
 input CreateIncidentInput {

@@ -27,15 +27,16 @@ export class IncidentsResolver {
         return await this.incidentsService.findOne(id);
     }
 
-    @ResolveField(returns => [Researcher])
-    async assigned_researchers(@Parent() getIncidents: Incident): Promise<Researcher[]> {
-        const { id } = getIncidents;
-        return await this.researchersService.findAssignedResearcherToAIncident(id);
-    }
-
+    
+    
     @ResolveField(returns => Anomaly)
     async belong_to_anomaly(@Parent() { anomaly_id: id }: Incident): Promise<Anomaly> {
         return await this.anomaliesService.findOnE(id);
+    }
+
+    @ResolveField(returns => [Researcher])
+    async researchers(@Parent() { id } : Incident): Promise<Researcher[]> {
+        return await this.incidentsService.findAssignedResearchers(id);
     }
 
 
