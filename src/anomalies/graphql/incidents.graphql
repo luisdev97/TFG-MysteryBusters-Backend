@@ -41,4 +41,6 @@ type Mutation {
     createIncident(input: CreateIncidentInput!): Incident!
     deleteIncident(id: Int!): Int
     updateIncident(id: ID!, input: UpdateIncidentInput!): Incident!
+    assignResearcher(incident_id: ID!, researcher_id: ID!): String!
+    unsignResearcher(incident_id: ID!, researcher_id: ID!): String!
 }

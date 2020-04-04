@@ -7,6 +7,8 @@ import { IncidentInput } from '../graphql/inputs/incident.input';
 import { UpdateIncidentArgs } from '../constants/types/update-incident-args';
 import { Anomaly } from '../entities/anomaly.entity';
 import { AnomaliesService } from '../services/anomalies.service';
+import { AssignResearcherArgs } from './resolvers_args/incidents/assign_researcher.args';
+import { NotFoundException } from '@nestjs/common';
 
 @Resolver('Incident')
 export class IncidentsResolver {
@@ -54,6 +56,28 @@ export class IncidentsResolver {
     async updateIncident(@Args() args: UpdateIncidentArgs): Promise<Incident> {
         const result = await this.incidentsService.update(args);
         return result;
+    }
+
+    @Mutation()
+    async assignResearcher(@Args() args: AssignResearcherArgs): Promise<string> {
+        try{
+            await this.incidentsService.assignNewResearcher(args)
+            return "OKAY";
+        }catch(err){
+            throw new NotFoundException(" no se ha agregado nada");
+        }
+
+    }
+
+    @Mutation()
+    async unsignResearcher(@Args() args: AssignResearcherArgs): Promise<string> {
+        try{
+            await this.incidentsService.unsignResearcher(args)
+            return "OKAY";
+        }catch(err){
+            throw new NotFoundException("No se ha dado de baja el investigador del incidente");
+        }
+
     }
 
 

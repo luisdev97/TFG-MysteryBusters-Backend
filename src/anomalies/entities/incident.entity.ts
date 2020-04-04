@@ -43,8 +43,8 @@ export class Incident {
     })
     resolved: boolean;
 
-    @ManyToMany(type => Researcher , researcher => researcher.incidents)
-    @JoinTable({ name: "researchers_investigate_incidents" })
+    @ManyToMany(type => Researcher , researcher => researcher.incidents, { cascade: true })
+    @JoinTable({ name: "researchers_investigate_incidents"})
     researchers: Researcher[];
 
 

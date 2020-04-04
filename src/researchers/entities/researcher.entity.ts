@@ -63,21 +63,10 @@ export class Researcher {
     @JoinTable({ name: "researchers_has_competencies"})
     competencies: ResearcherCompetencie[];
 
+    
     @ManyToMany(type => Incident, incident => incident.researchers)
-    @JoinTable({ name: "researchers_investigate_incidents" })
     incidents: Incident[];
-
-   
-
-    /*
-    @ManyToMany(type => Incident, incident => incident.assigned_researchers)
-    @JoinTable({ 
-        name: "researchers_investigate_incidents",
-        inverseJoinColumn: { name: "researcher_id", referencedColumnName: "id"},
-        joinColumn: { name: "incident_id", referencedColumnName: "id"}
-    })    
-    assigned_incidents!: Incident[];
-    */
+    
     
     @OneToMany(type => Anomaly, anomaly => anomaly.creator)
     posted_anomalies: Anomaly[];
