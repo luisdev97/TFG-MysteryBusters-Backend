@@ -10,7 +10,7 @@ export class ResearcherCompetencie {
     @Column()
     type: string;
 
-    @ManyToMany(type => Researcher, researcher => researcher.competencies)
+    @ManyToMany(type => Researcher, researcher => researcher.competencies, { cascade: true} )
     @JoinTable({ name: "researchers_has_competencies"})
     researchers: Researcher[];
 
