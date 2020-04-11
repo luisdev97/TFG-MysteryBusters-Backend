@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Incident } from '../entities/incident.entity';
-import { Repository, createQueryBuilder } from 'typeorm';
+import { Repository, createQueryBuilder, SelectQueryBuilder } from 'typeorm';
 import { IncidentInput } from '../graphql/inputs/incident.input';
 import { UpdateIncidentArgs } from '../constants/types/update-incident-args';
 import { createObject } from '../../shared/helpers/AutoAssignFields';
 import { Researcher } from '../../researchers/entities/researcher.entity';
 import { AssignResearcherArgs } from '../resolvers/resolvers_args/incidents/assign_researcher.args';
+import { PaginateIncidentsArgs } from '../constants/types/paginate-incidents.args';
 
 @Injectable()
 export class IncidentsService {
@@ -15,9 +16,27 @@ export class IncidentsService {
         @InjectRepository(Researcher) private readonly researcherRepository: Repository<Researcher>
     ) { }
 
-    findAll(): Promise<Incident[]> {
-        return this.incidentsRepository.find();
+
+
+
+
+
+    findAll(paginate: PaginateIncidentsArgs = null): Promise<Incident[]> {
+        if (!paginate)
+            return this.incidentsRepository.find();
+
+        return this.incidentsRepository
+            .createQueryBuilder("incidents")
+            .skip(paginate.offset)
+            .take(paginate.limit)
+            .getMany()
+
     }
+
+
+
+
+
 
     findOne(id: number): Promise<Incident> {
         return this.incidentsRepository.findOne(id);
@@ -51,15 +70,15 @@ export class IncidentsService {
         return result;
     }
 
-    async assignNewResearcher({ incident_id, researcher_id}: AssignResearcherArgs){
-        const incident = await this.incidentsRepository.findOne(incident_id, { relations: ["researchers"]});
+    async assignNewResearcher({ incident_id, researcher_id }: AssignResearcherArgs) {
+        const incident = await this.incidentsRepository.findOne(incident_id, { relations: ["researchers"] });
         const researcher = await this.researcherRepository.findOne(researcher_id)
         incident.researchers.push(researcher)
         return this.incidentsRepository.save(incident);
     }
-    
-    async unsignResearcher({ incident_id, researcher_id}: AssignResearcherArgs){
-        const incident = await this.incidentsRepository.findOne(incident_id, { relations: ["researchers"]});
+
+    async unsignResearcher({ incident_id, researcher_id }: AssignResearcherArgs) {
+        const incident = await this.incidentsRepository.findOne(incident_id, { relations: ["researchers"] });
         incident.researchers = incident.researchers.filter(researcher => {
             return researcher.id != researcher_id;
         });

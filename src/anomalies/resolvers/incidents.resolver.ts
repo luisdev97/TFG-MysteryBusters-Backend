@@ -9,6 +9,7 @@ import { Anomaly } from '../entities/anomaly.entity';
 import { AnomaliesService } from '../services/anomalies.service';
 import { AssignResearcherArgs } from './resolvers_args/incidents/assign_researcher.args';
 import { NotFoundException } from '@nestjs/common';
+import { PaginateIncidentsArgs } from '../constants/types/paginate-incidents.args';
 
 @Resolver('Incident')
 export class IncidentsResolver {
@@ -19,10 +20,18 @@ export class IncidentsResolver {
         private readonly anomaliesService: AnomaliesService
     ) { }
 
+
+
+    
     @Query(returns => [Incident])
-    async getIncidents(): Promise<Incident[]> {
-        return await this.incidentsService.findAll();
+    async getIncidents(@Args() paginate: PaginateIncidentsArgs): Promise<Incident[]> {
+        return await this.incidentsService.findAll(paginate);
     }
+
+
+
+
+
 
     @Query(returns => Incident)
     async getIncident(@Args('id') id: Incident['id']): Promise<Incident> {
