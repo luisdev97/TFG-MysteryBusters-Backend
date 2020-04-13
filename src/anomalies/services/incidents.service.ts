@@ -29,6 +29,7 @@ export class IncidentsService {
             .createQueryBuilder("incidents")
             .skip(paginate.offset)
             .take(paginate.limit)
+            .orderBy("id", "DESC")
             .getMany()
 
     }

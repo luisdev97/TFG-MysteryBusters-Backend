@@ -5,7 +5,9 @@ scalar Time
 type Incident {
     id: Int!
     belong_to_anomaly: Anomaly!
+    title: String
     description: String!
+    img: String!
     location: JSON!
     date: Date!
     time: Time!

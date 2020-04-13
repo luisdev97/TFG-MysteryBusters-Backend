@@ -16,9 +16,14 @@ export class Incident {
     @JoinColumn({ name: "anomaly_id"})
     belong_to_anomaly: Anomaly;
 
+    @Column({nullable: true})
+    title: string;
 
     @Column()
     description: string;
+
+    @Column({ nullable: true})
+    img: string;
 
     @Column({
         type: 'json'
@@ -46,17 +51,6 @@ export class Incident {
     @ManyToMany(type => Researcher , researcher => researcher.incidents, { cascade: true })
     @JoinTable({ name: "researchers_investigate_incidents"})
     researchers: Researcher[];
-
-
-    /* 
-    @ManyToMany(type => Researcher, researcher => researcher.assigned_incidents)
-    @JoinTable({ 
-        name: "researchers_investigate_incidents",
-        joinColumn: { name: "researcher_id", referencedColumnName: "id"},
-        inverseJoinColumn: { name: "incident_id", referencedColumnName: "id"}
-    })
-    assigned_researchers!: Researcher[];
-    */
 
 }    
 
