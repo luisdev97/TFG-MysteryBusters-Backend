@@ -29,23 +29,19 @@ export class ResearchersService {
         return this.researcherRepository.save(object);
     }
 
-    async findResearcherCompetencies(researcherId: number): Promise<Competencie[]> {
-        const result = await this.competenciesRepository
-            .createQueryBuilder("researcher_competencies")
-            .innerJoin("researcher_competencies.researchers", "researcher")
-            .where(`researcher.id = ${researcherId}`)
-            .getMany();
-        return result;
+    findResearcherCompetencies(researcherId: number): Promise<Competencie[]> {
+        return this.competenciesRepository
+        .createQueryBuilder("researcher_competencies")
+        .innerJoin("researcher_competencies.researchers", "researcher")
+        .where(`researcher.id = ${researcherId}`)
+        .getMany();;
     }
 
-    async findAssignedIncidents(researcherId: number): Promise<Incident[]> {
-        console.log("ss");
-        const result = await this.incidentsRepository
-            .createQueryBuilder("incident")
-            .innerJoin("incident.researchers", "researcher")
-            .where(`researcher.id = ${researcherId}`)
-            .getMany()
-        console.log(result);
-        return result;
+    findAssignedIncidents(researcherId: number): Promise<Incident[]> {   
+        return this.incidentsRepository
+        .createQueryBuilder("incident")
+        .innerJoin("incident.researchers", "researcher")
+        .where(`researcher.id = ${researcherId}`)
+        .getMany();
     }
 }

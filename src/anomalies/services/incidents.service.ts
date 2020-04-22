@@ -63,18 +63,17 @@ export class IncidentsService {
     }
 
     async findAssignedResearchers(id: number): Promise<Researcher[]> {
-        const result = await this.researcherRepository  // repositorio de lo que quieres obtener
-            .createQueryBuilder("researcher") // tabla de la que quieres obtener cosas
-            .innerJoin("researcher.assigned_incidents", "incident")
-            .where(`incident.id = ${id}`)
-            .getMany();
-        return result;
+        return this.researcherRepository  // repositorio de lo que quieres obtener
+        .createQueryBuilder("researcher") // tabla de la que quieres obtener cosas
+        .innerJoin("researcher.assigned_incidents", "incident")
+        .where(`incident.id = ${id}`)
+        .getMany();
     }
 
     async assignNewResearcher({ incident_id, researcher_id }: AssignResearcherArgs) {
         const incident = await this.incidentsRepository.findOne(incident_id, { relations: ["researchers"] });
-        const researcher = await this.researcherRepository.findOne(researcher_id)
-        incident.researchers.push(researcher)
+        const researcher = await this.researcherRepository.findOne(researcher_id);
+        incident.researchers.push(researcher);
         return this.incidentsRepository.save(incident);
     }
 
@@ -83,6 +82,6 @@ export class IncidentsService {
         incident.researchers = incident.researchers.filter(researcher => {
             return researcher.id != researcher_id;
         });
-        return this.incidentsRepository.save(incident);;
+        return this.incidentsRepository.save(incident);
     }
 }
