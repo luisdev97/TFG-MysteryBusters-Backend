@@ -65,7 +65,7 @@ export class IncidentsService {
     async findAssignedResearchers(id: number): Promise<Researcher[]> {
         const result = await this.researcherRepository  // repositorio de lo que quieres obtener
             .createQueryBuilder("researcher") // tabla de la que quieres obtener cosas
-            .innerJoin("researcher.incidents", "incident")
+            .innerJoin("researcher.assigned_incidents", "incident")
             .where(`incident.id = ${id}`)
             .getMany();
         return result;

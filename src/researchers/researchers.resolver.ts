@@ -3,16 +3,16 @@ import { ResearchersService } from './researchers.service';
 import { ResearcherInput } from './inputs/ResearcherInput';
 import { Researcher } from './entities/researcher.entity';
 import { ResearcherCompetencie } from './entities/researcherCompetencie.entity';
-import { async } from 'rxjs/internal/scheduler/async';
 import { Anomaly } from '../anomalies/entities/anomaly.entity';
 import { AnomaliesService } from '../anomalies/services/anomalies.service';
+import { Incident } from 'src/anomalies/entities/incident.entity';
 
 @Resolver('Researcher')
 export class ResearchersResolver {
 
     constructor(
         private readonly researchersService: ResearchersService,
-        private readonly anomaliesService: AnomaliesService
+        private readonly anomaliesService: AnomaliesService,
     ){}
 
     @Query(returns => [Researcher])
@@ -40,6 +40,12 @@ export class ResearchersResolver {
     async posted_anomalies(@Parent() getResearchers: Researcher): Promise<Anomaly[]>{
         const { id } = getResearchers;
         return await this.anomaliesService.findAllAnomalyPostedByResearcher(id);
+    }
+
+    @ResolveField(() => [Incident])
+    async assigned_incidents(@Parent() getResearchers: Researcher): Promise<Incident[]>{
+        const { id } = getResearchers;
+        return this.researchersService.findAssignedIncidents(id);
     }
 
 

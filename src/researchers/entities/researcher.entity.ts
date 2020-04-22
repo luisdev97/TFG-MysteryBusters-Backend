@@ -64,7 +64,7 @@ export class Researcher {
 
     
     @ManyToMany(type => Incident, incident => incident.researchers)
-    incidents: Incident[];
+    assigned_incidents: Incident[];
     
     
     @OneToMany(type => Anomaly, anomaly => anomaly.creator)

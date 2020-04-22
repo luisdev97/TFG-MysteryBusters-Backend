@@ -7,7 +7,7 @@ type Incident {
     belong_to_anomaly: Anomaly!
     title: String
     description: String!
-    img: String!
+    img: String
     location: JSON!
     date: Date!
     time: Time!

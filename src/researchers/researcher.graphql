@@ -10,6 +10,7 @@ type Researcher {
     role: String!  
     competencies: [Competencie!]
     posted_anomalies: [Anomaly]
+    assigned_incidents: [Incident]
 
 }
 
