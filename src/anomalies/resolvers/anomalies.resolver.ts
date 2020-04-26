@@ -30,7 +30,8 @@ export class AnomaliesResolver {
 
     @ResolveField(returns => [Incident])
     async incidents(@Parent() getAnomalies: Anomaly): Promise<Incident[]> {
-        return await this.incidentsService.findAll();
+        const { id } = getAnomalies;
+        return await this.incidentsService.findAllByAnomaliyId(id);
     }
 
 

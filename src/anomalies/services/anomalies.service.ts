@@ -18,6 +18,7 @@ export class AnomaliesService {
         return this.anomalyRepository.findOne(id);
     }
 
+
     findAllAnomalyPostedByResearcher(id: number): Promise<Anomaly[]> {
         return this.anomalyRepository.find({ where: { researcher_id: id}});
     }

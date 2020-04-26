@@ -17,10 +17,6 @@ export class IncidentsService {
     ) { }
 
 
-
-
-
-
     findAll(paginate: PaginateIncidentsArgs = null): Promise<Incident[]> {
         if (!paginate)
             return this.incidentsRepository.find();
@@ -35,16 +31,12 @@ export class IncidentsService {
     }
 
 
-
-
-
-
     findOne(id: number): Promise<Incident> {
         return this.incidentsRepository.findOne(id);
     }
 
     findAllByAnomaliyId(id: number): Promise<Incident[]> {
-        return this.incidentsRepository.find({ where: { anomalyId: id } });
+        return this.incidentsRepository.find({ where: { anomaly_id: id } });
     }
 
     create(input: IncidentInput): Promise<Incident> {
