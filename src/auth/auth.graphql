@@ -5,6 +5,10 @@ type AuthLoginResponse {
   role: String!
 }
 
+type Query {
+    isLogged: Boolean!
+}
+
 input Login {
     email: String!
     password: String!
@@ -12,4 +16,5 @@ input Login {
 
 type Mutation {
     login(input: Login): AuthLoginResponse
+    logout: Boolean
 }
