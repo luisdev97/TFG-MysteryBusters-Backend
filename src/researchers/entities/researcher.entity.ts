@@ -4,15 +4,10 @@ import { ResearcherRole as Rol } from "../constants/roles";
 import { ResearcherCompetencie  } from './researcherCompetencie.entity';
 import { Anomaly } from '../../anomalies/entities/anomaly.entity';
 import { Incident } from "src/anomalies/entities/incident.entity";
-const bcrypt = require('bcrypt')
 
 @Entity("researchers")
 export class Researcher {
 
-    //private readonly hashPassword = pass => bcrypt.hashSync(pass, 10)
-    hashPassword(pass){
-        return bcrypt.hashSync(pass, 10)
-    }
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -40,7 +35,6 @@ export class Researcher {
     @MinLength(5)
     password: string;
 
-    private tempPassword: string;
 
     @Column({ unique: true})
     @IsEmail()
@@ -71,21 +65,7 @@ export class Researcher {
     posted_anomalies: Anomaly[];
 
 
-    @AfterLoad()
-    private loadTempPassword(): void {
-        this.tempPassword = this.password;
-    }
-
-    @BeforeInsert()  
-    @BeforeUpdate()
-    private encryptPassword(): void {
-        const newPassword = this.hashPassword(this.password);
-        if(this.tempPassword){
-            if(this.tempPassword !== newPassword)
-                this.password = newPassword;
-        }else
-            this.password = newPassword;
-    }
+  
   
     
     

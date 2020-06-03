@@ -1,0 +1,15 @@
+type AuthLoginResponse {
+  accessToken: String!
+  firstname: String!
+  id: String!
+  role: String!
+}
+
+input Login {
+    email: String!
+    password: String!
+}
+
+type Mutation {
+    login(input: Login): AuthLoginResponse
+}

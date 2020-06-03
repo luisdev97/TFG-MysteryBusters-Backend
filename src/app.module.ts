@@ -9,6 +9,7 @@ import {
   GraphQLDate,
   GraphQLTime
 } from 'graphql-iso-date';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -24,7 +25,8 @@ import {
       }
     }),
     ResearchersModule,
-    AnomaliesModule
+    AnomaliesModule,
+    AuthModule
   ]
 })
 export class AppModule {}

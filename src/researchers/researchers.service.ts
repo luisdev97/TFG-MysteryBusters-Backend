@@ -6,6 +6,8 @@ import { ResearcherInput } from './inputs/ResearcherInput';
 import { ResearcherCompetencie as Competencie } from './entities/researcherCompetencie.entity';
 import { createObject } from '../shared/helpers/AutoAssignFields';
 import { Incident } from 'src/anomalies/entities/incident.entity';
+const bcrypt = require('bcrypt')
+
 
 @Injectable()
 export class ResearchersService {
@@ -26,6 +28,7 @@ export class ResearchersService {
 
     createResearcher(input: ResearcherInput): Promise<Researcher> {
         const object: Researcher = createObject<Researcher, ResearcherInput>(input);
+        object.password = bcrypt.hashSync(object.password, 10)
         return this.researcherRepository.save(object);
     }
 
