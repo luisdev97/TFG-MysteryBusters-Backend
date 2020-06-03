@@ -26,5 +26,5 @@ type Query {
 type Mutation {
     createAnomaly(input: CreateAnomalyInput!): Anomaly!
     deleteAnomaly(id: Int!): Int
-    updateAnomaly(id: ID!, input: UpdateAnomalyInput!): Anomaly!
+    updateAnomaly(id: Int!, input: UpdateAnomalyInput!): Anomaly!
 }

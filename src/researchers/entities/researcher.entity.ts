@@ -21,10 +21,10 @@ export class Researcher {
     firstname: string;
 
     @Length(30)
-    @Column({ nullable: true })
+    @Column()
     lastname: string;
 
-    @Column()
+    @Column({ nullable: true })
     @Min(18)
     @Max(120)
     age: number;
@@ -33,7 +33,7 @@ export class Researcher {
     @Column({ default: true })
     active: boolean;
 
-    @Column({ unique: true})
+    @Column({ unique: true, nullable: true})
     username: string;
 
     @Column()

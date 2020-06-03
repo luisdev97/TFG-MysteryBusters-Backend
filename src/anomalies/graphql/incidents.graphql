@@ -18,14 +18,18 @@ type Incident {
 
 input CreateIncidentInput {
     anomaly_id: Int!
+    title: String
     description: String!
     location: JSON!
+    img: String!
     maxResearchers: Int!
-    date: Date!
-    time: Time!
+    date: String!
+    time: String!
 }
 
 input UpdateIncidentInput {
+    title: String
+    img: String
     description: String
     location: JSON
     maxResearchers: Int

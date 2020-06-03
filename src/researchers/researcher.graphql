@@ -16,9 +16,9 @@ type Researcher {
 
 input ResearcherInput {
     firstname: String!
-    lastname: String
-    age: Int!
-    username: String!
+    lastname: String!
+    age: Int
+    username: String
     password: String!
     email: String!
     avatar: String
