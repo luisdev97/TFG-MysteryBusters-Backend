@@ -1,9 +1,9 @@
 type Researcher {
     id: Int!
     firstname: String!
-    lastname: String
-    age: Int!
-    username: String!
+    lastname: String!
+    age: Int
+    username: String
     password: String!
     email: String!
     avatar: String

@@ -9,8 +9,8 @@ type Incident {
     description: String!
     img: String
     location: JSON!
-    date: Date!
-    time: Time!
+    date: String!
+    time: String!
     maxResearchers: Int!
     resolved: Boolean!
     researchers: [Researcher!]
