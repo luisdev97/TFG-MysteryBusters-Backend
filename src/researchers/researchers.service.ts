@@ -26,6 +26,10 @@ export class ResearchersService {
         return this.researcherRepository.findOne(id)
     }
 
+    findResearcherByEmail(email: string){
+        return this.researcherRepository.findOne({ where: { email } });
+    }
+
     createResearcher(input: ResearcherInput): Promise<Researcher> {
         const object: Researcher = createObject<Researcher, ResearcherInput>(input);
         object.password = bcrypt.hashSync(object.password, 10)
