@@ -17,7 +17,8 @@ import { AuthModule } from './auth/auth.module';
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
       playground: true,
-      resolvers: { 
+      context: ({ req }) => ({ headers: req.headers }),
+      resolvers: {
         JSON: GraphQLJSON,
         Date: GraphQLDate,
         Time: GraphQLTime
@@ -28,4 +29,4 @@ import { AuthModule } from './auth/auth.module';
     AuthModule
   ]
 })
-export class AppModule {}
+export class AppModule { }

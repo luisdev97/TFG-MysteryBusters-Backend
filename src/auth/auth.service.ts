@@ -3,7 +3,6 @@ import { ResearchersService } from 'src/researchers/researchers.service';
 import { buildSchemaFromTypeDefinitions } from 'graphql-tools';
 import { Researcher } from 'src/researchers/entities/researcher.entity';
 import * as jwt from 'jsonwebtoken';
-
 const bcrypt = require('bcrypt')
 
 @Injectable()
@@ -12,8 +11,8 @@ export class AuthService {
     constructor(private readonly researcherService: ResearchersService) { }
 
 
-    private createToken({ id, firstname, lastname, role }: Researcher){
-        return jwt.sign({ id, firstname, lastname, role }, 'secret');
+    private createToken({ id, firstname, lastname, email, role }: Researcher){
+        return jwt.sign({ id, firstname, lastname, email, role }, 'secret');
     }
 
     private async comparePassword(inputPassword: string, researcherPassword: string): Promise<boolean> {
