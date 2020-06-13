@@ -11,26 +11,29 @@ export class AuthService {
     constructor(private readonly researcherService: ResearchersService) { }
 
 
-    private createToken({ id, firstname, lastname, email, role }: Researcher){
+    private createToken({ id, firstname, lastname, email, role }: Researcher) {
         return jwt.sign({ id, firstname, lastname, email, role }, 'secret');
     }
 
-    private async comparePassword(inputPassword: string, researcherPassword: string): Promise<boolean> {
-        return await bcrypt.compare(inputPassword, researcherPassword);
+    private comparePassword(inputPassword: string, researcherPassword: string): Promise<boolean> {
+        return bcrypt.compare(inputPassword, researcherPassword);
     }
 
     async login(input: any) {
         let error: string;
         const researcher = await this.researcherService.findResearcherByEmail(input.email);
 
-        if(!researcher)
+        if (!researcher) {
             error = "No existe un investigador con ese email";
-        else
-            this.comparePassword(input.password, researcher.password) 
-                ? null 
-                : error = "Las claves no coinciden";
-
-        return error ? error : this.createToken(researcher);
+        } else {
+            const areEqualsPasswords = await this.comparePassword(input.password, researcher.password);
+            if (!areEqualsPasswords) {
+                error = "Las claves no coinciden"
+            }
+        }
+        
+        if (!error) return this.createToken(researcher);
+        throw new Error(error);
     }
 
 }
